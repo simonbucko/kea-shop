@@ -1,0 +1,37 @@
+:root {
+	--success-color: #4aed74;
+	--secondary-color: #8a4fff;
+	--bright-color: white;
+	--primary-color: #e3047d;
+	--error-color: #ff5366;
+	--blur: 10px;
+  }
+
+html, body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.add-to-cart-btn{
+	width: 100%;
+}
+
+.success .mdc-snackbar__surface{
+	background-color: var(--success-color);
+}
+
+.color-bright {
+    color: white !important;
+}
+
+.fullWidth{
+	width: 100%;
+}
+
+
+
