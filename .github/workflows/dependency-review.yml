@@ -24,3 +24,4 @@ jobs:
           base-ref: refs/heads/main
           head-ref: refs/heads/main
           vulnerability-check: true
+          working-directory: ./server
