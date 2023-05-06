@@ -3,12 +3,12 @@ const router = Router();
 import bcrypt from "bcryptjs";
 import User from "../models/user.js";
 import { respondWithUser } from "./functions.js";
+import { checkAuth } from "../middleware/auth.js";
 import {
-  checkAuth,
   validate,
   singupBodyValidationRules,
   loginBodyValidationRules,
-} from "../middleware/index.js";
+} from "../middleware/validation.js";
 
 router.post(
   "/signup",
