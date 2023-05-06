@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import limiter from "./middleware/rate-limiter.js";
 import socketServer from "./socketServer.js";
 //routes
 import authRouter from "./routes/authRouter.js";
@@ -20,6 +21,7 @@ mongoose
     //set up express app
     app.use(express.json());
     app.use(cors());
+    app.use(limiter);
     //routers
     app.use("/api/auth", authRouter);
     app.use("/api/products", productsRouter);
