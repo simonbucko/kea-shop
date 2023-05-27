@@ -8,25 +8,27 @@
   import { LOGIN, HOME } from "../../routing/constants";
   import { user } from "../../store/store";
   import { useNavigate } from "svelte-navigator";
+  import { hashValue } from "@src/common/functions";
 
   const navigate = useNavigate();
   let name = "";
   let email = "";
   let password = "";
-  let isProcessingOrder = false;
+  let isLoading = false;
   let errorMessage = "";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    isProcessingOrder = true;
+    isLoading = true;
+    const requestBody = {
+      name,
+      email,
+      password: await hashValue(password),
+    };
     try {
       const {
         data: { data },
-      } = await axios.post(`${SERVER_API_URL}/auth/signup`, {
-        name,
-        email,
-        password,
-      });
+      } = await axios.post(`${SERVER_API_URL}/auth/signup`, requestBody);
       user.set({
         ...data.user,
         isLoading: false,
@@ -36,7 +38,7 @@
     } catch (error) {
       errorMessage = error.response.data.errors[0].msg;
     } finally {
-      isProcessingOrder = false;
+      isLoading = false;
       if ($user.isAuthenticated) {
         name = "";
         email = "";
@@ -53,7 +55,7 @@
 <main>
   <div class="wrapper">
     <h2>Sign Up</h2>
-    <p>Already have account? Log in <Link to={LOGIN}>here.</Link></p>
+    <p>Alreaady have account? Log in <Link to={LOGIN}>here.</Link></p>
     <form on:submit={handleSubmit}>
       <Textfield
         style="width: 100%;"
@@ -92,7 +94,7 @@
   </div>
 </main>
 
-{#if isProcessingOrder}
+{#if isLoading}
   <div class="modal">
     <Loader />
   </div>

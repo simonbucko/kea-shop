@@ -8,6 +8,7 @@
   import { SIGNUP, HOME } from "../../routing/constants";
   import { user } from "../../store/store";
   import { useNavigate } from "svelte-navigator";
+  import { hashValue } from "@src/common/functions";
 
   const navigate = useNavigate();
   let email = "";
@@ -18,13 +19,15 @@
   const handleSubmit = async (e) => {
     e.preventDefault();
     isProcessingOrder = true;
+    const requestBody = {
+      email,
+      password: await hashValue(password),
+    };
+    console.log(requestBody);
     try {
       const {
         data: { data },
-      } = await axios.post(`${SERVER_API_URL}/auth/login`, {
-        email,
-        password,
-      });
+      } = await axios.post(`${SERVER_API_URL}/auth/login`, requestBody);
       user.set({
         ...data.user,
         isLoading: false,

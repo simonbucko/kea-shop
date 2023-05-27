@@ -2,23 +2,21 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w -s",
-    "start": "sirv public --no-clear",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite",
+    "start:mobile": "vite --host",
     "prepare": "smui-theme compile public/build/smui.css -i src/theme"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.0",
     "@smui/button": "^6.0.0-beta.16",
-    "rollup": "^2.3.4",
-    "rollup-plugin-css-only": "^3.1.0",
-    "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-svelte": "^7.0.0",
-    "rollup-plugin-terser": "^7.0.0",
+    "@sveltejs/vite-plugin-svelte": "^1.1.0",
     "smui-theme": "^6.0.0-beta.16",
-    "svelte": "^3.0.0"
+    "svelte": "^3.0.0",
+    "vite": "^3.2.3"
   },
   "dependencies": {
     "@smui/circular-progress": "^6.0.0-beta.16",
