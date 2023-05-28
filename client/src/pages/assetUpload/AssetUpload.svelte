@@ -13,6 +13,7 @@
         type="file"
         name="asset"
         placeholder="asset"
+        accept="image/png, image/jpeg"
       />
 
       <button type="submit">submit</button>
