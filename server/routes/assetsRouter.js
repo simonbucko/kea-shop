@@ -3,7 +3,7 @@ import multer from "multer";
 const router = Router();
 
 const ALLOWED_ASSET_TYPES = ["image/jpeg", "image/png"];
-const MAX_ASSET_SIZE_IN_KB = 1_000_000;
+const MAX_ASSET_SIZE_IN_KB = 1_00;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -27,7 +27,6 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  // cb(null, false)
   console.log(file);
   if (!ALLOWED_ASSET_TYPES.includes(file.mimetype)) {
     cb(
@@ -35,10 +34,12 @@ const fileFilter = (req, file, cb) => {
         `Unsupported file type. Supported types: ${ALLOWED_ASSET_TYPES.join(
           ","
         )}`
-      )
+      ),
+      false
     );
+  } else {
+    cb(null, true);
   }
-  cb(null, true);
 };
 
 const upload = multer({
@@ -47,16 +48,9 @@ const upload = multer({
   limits: {
     fileSize: MAX_ASSET_SIZE_IN_KB,
   },
-}).single("asset");
+});
 
-router.post("/", async (req, res) => {
-  console.log(req.file);
-  upload(req, res, (err) => {
-    console.log("error");
-    if (err instanceof multer.MulterError) {
-      res.status(400).send("U stupid");
-    }
-  });
+router.post("/", upload.single("asset"), async (req, res) => {
   res.status(201).send();
 });
 
