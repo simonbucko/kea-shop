@@ -8,11 +8,11 @@
             "type": "node-terminal",
             "command": "nodemon ./server/app.js",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Debug Server",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "envFile": "${workspaceFolder}\\server\\.env"
+            "envFile": "${workspaceFolder}\\server\\.env",
         }
     ]
 }

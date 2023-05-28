@@ -10,6 +10,7 @@ import orderRouter from "./routes/orderRouter.js";
 import productsRouter from "./routes/productsRouter.js";
 import chatRoomRouter from "./routes/chatRoomRouter.js";
 import checkoutRouter from "./routes/checkoutRouter.js";
+import assetsRouter from "./routes/assetsRouter.js";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ mongoose
     const app = express();
     //set up express app
     app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
     app.use(cors());
     app.use(limiter);
     //routers
@@ -28,6 +30,7 @@ mongoose
     app.use("/api/order", orderRouter);
     app.use("/api/chatrooms", chatRoomRouter);
     app.use("/api/checkout", checkoutRouter);
+    app.use("/api/assets", assetsRouter);
     app.use("/test", (req, res) => {
       res.send("Backend is working and is ready for requests");
     });

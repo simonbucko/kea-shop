@@ -15,6 +15,7 @@
   import PrivateRoute from "./PrivateRoute.svelte";
   import SupportWindow from "../common/SupportWindow.svelte";
   import OrderConfirmation from "../pages/orderConfirmation/OrderConfirmation.svelte";
+  import AssetUpload from "@src/pages/assetUpload/AssetUpload.svelte";
 </script>
 
 <Router primary={false}>
@@ -27,6 +28,9 @@
   </Route>
   <Route path={ROUTES.ORDER_CONFIRMATION}>
     <OrderConfirmation />
+  </Route>
+  <Route path={ROUTES.ASSET_UPLOAD}>
+    <AssetUpload />
   </Route>
   <AdminRoute path={ROUTES.CHAT_ROOMS} let:location>
     <Chatrooms />
