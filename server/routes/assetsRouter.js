@@ -3,7 +3,7 @@ import multer from "multer";
 const router = Router();
 
 const ALLOWED_ASSET_TYPES = ["image/jpeg", "image/png"];
-const MAX_ASSET_SIZE_IN_KB = 1_00;
+const MAX_ASSET_SIZE_IN_KB = 1_000_000;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -48,10 +48,17 @@ const upload = multer({
   limits: {
     fileSize: MAX_ASSET_SIZE_IN_KB,
   },
-});
+}).single("asset");
 
-router.post("/", upload.single("asset"), async (req, res) => {
-  res.status(201).send();
+router.post("/", async (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({
+        message: err.message,
+      });
+    }
+    return res.status(201).send();
+  });
 });
 
 export default router;
