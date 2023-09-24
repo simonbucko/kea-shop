@@ -15,6 +15,7 @@ import assetsRouter from "./routes/assetsRouter.js";
 dotenv.config();
 
 mongoose
+  .set("strictQuery", true) // remove a mongoose warning
   .connect(process.env.MONGO_URI)
   .then((mongoose) => {
     console.log("Connected to DB");
