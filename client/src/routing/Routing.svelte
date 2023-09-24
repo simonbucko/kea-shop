@@ -2,8 +2,8 @@
   import { Route, Router } from "svelte-navigator";
   import Navbar from "../common/Navbar.svelte";
   import AddProduct from "../pages/addProduct/AddProduct.svelte";
-  import Chatrooms from "../pages/chatrooms/Chatrooms.svelte";
-  import Chatroom from "../pages/chatroom/Chatroom.svelte";
+  import Chatrooms from "../pages/chatRooms/Chatrooms.svelte";
+  import Chatroom from "../pages/chatRoom/Chatroom.svelte";
   import Checkout from "../pages/checkout/Checkout.svelte";
   import Home from "../pages/home/Home.svelte";
   import Login from "../pages/login/Login.svelte";
