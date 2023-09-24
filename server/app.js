@@ -36,8 +36,8 @@ mongoose
       res.send("Backend is working and is ready for requests");
     });
     //spin up the server
-    const PORT = process.env.SERVER_PORT || 8000;
-    const SOCKET_PORT = process.env.SOCKET_PORT || 8001;
+    const PORT = process.env.SERVER_PORT || 8080;
+    const SOCKET_PORT = process.env.SOCKET_PORT || 8081;
     socketServer(SOCKET_PORT, mongoose);
     app.listen(PORT, () => {
       console.log("Server is runnig on port: ", PORT);
