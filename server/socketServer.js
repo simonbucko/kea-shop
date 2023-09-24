@@ -15,8 +15,6 @@ const socketServer = (socketPort, mongoose) => {
 
 const registerChatRoomSocket = (io) => {
   io.of("/socket/chatroom").on("connection", (socket) => {
-    console.log("socket.io, /chatrooom: User connected: ", socket.id);
-
     socket.on("newMessage", async (message, roomId) => {
       const currentRoomId = roomId || socket.id;
       try {
