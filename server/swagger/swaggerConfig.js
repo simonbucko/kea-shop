@@ -1,4 +1,4 @@
-import { Product, ProductInput } from "./schemas/index.js";
+import { Product, ProductInput, OrderInput } from "./schemas/index.js";
 
 const swaggerDefinition = {
   openapi: "3.0.0",
@@ -15,6 +15,7 @@ const swaggerDefinition = {
     schemas: {
       Product,
       ProductInput,
+      OrderInput,
     },
   },
 };

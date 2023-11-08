@@ -9,6 +9,26 @@ import {
 
 const router = Router();
 
+/**
+ * @swagger
+ * /api/orders:
+ *   post:
+ *     tags:
+ *       [Orders]
+ *     summary: Create a order
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/OrderInput'
+ *     responses:
+ *       '201':
+ *         description: Order created
+ *
+ *       '500':
+ *         $ref: '#/components/responses/InternalServerError'
+ */
 router.post(
   "/",
   createOrderBodyValidationRules(),
