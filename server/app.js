@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import limiter from "./middleware/rate-limiter.js";
 import socketServer from "./socketServer.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerJSDoc from "swagger-jsdoc";
+import { options } from "./swagger/swaggerConfig.js";
 //routes
 import authRouter from "./routes/authRouter.js";
 import orderRouter from "./routes/orderRouter.js";
@@ -35,6 +38,8 @@ mongoose
     app.use("/test", (req, res) => {
       res.send("Backend is working and is ready for requests");
     });
+    // add swagger
+    app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(options)));
     //spin up the server
     const PORT = process.env.SERVER_PORT || 8080;
     const SOCKET_PORT = process.env.SOCKET_PORT || 8081;

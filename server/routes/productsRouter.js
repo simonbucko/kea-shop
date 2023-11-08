@@ -5,6 +5,26 @@ import escapeRegExp from "lodash/escapeRegExp.js";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /api/products:
+ *   post:
+ *     tags:
+ *       [Products]
+ *     summary: Create a product
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ProductInput'
+ *     responses:
+ *       '201':
+ *         description: Product created
+ *
+ *       '500':
+ *         $ref: '#/components/responses/InternalServerError'
+ */
 router.post("/", checkAuth, checkAdmin, async (req, res) => {
   await Product.create(req.body);
 
@@ -14,6 +34,56 @@ router.post("/", checkAuth, checkAdmin, async (req, res) => {
   });
 });
 
+/**
+ * @swagger
+ * /api/products:
+ *   get:
+ *     tags:
+ *       [Products]
+ *     summary: Get a products list
+ *     parameters:
+ *       - in: query
+ *         name: searchText
+ *         schema:
+ *           type: string
+ *         description: The name to filter by
+ *       - in: query
+ *         name: priceOrder
+ *         schema:
+ *           type: string
+ *         description: The price order to sort by
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: The number of records to return
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: The page number. Page size is specified in the limit parameter and page count starts from 1
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 errors:
+ *                   type: object
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     totalCount:
+ *                      type: integer
+ *                     products:
+ *                      type: array
+ *                      items:
+ *                        $ref: '#/components/schemas/Product'
+ *       '500':
+ *         $ref: '#/components/responses/InternalServerError'
+ */
 router.get("/", async (req, res) => {
   let { page, limit, priceOrder, searchText } = req.query;
 
@@ -47,6 +117,38 @@ router.get("/", async (req, res) => {
   });
 });
 
+/**
+ * @swagger
+ * /api/products/{productId}:
+ *   get:
+ *     tags:
+ *       [Products]
+ *     summary: Get a product by ID
+ *     parameters:
+ *       - name: productId
+ *         in: path
+ *         description: ID of the product to get
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     product:
+ *                       $ref: '#/components/schemas/Product'
+ *       '404':
+ *         description: Product not found
+ *       '500':
+ *         $ref: '#/components/responses/InternalServerError'
+ */
 router.get("/:productId", async (req, res) => {
   try {
     const product = await Product.findById(req.params.productId);
